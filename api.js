@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
             url = subscriptionURL;
 
             const textEl = document.getElementById('urltext');
-            textEl.textContent = url;
+            textEl.textContent = `curl -X GET -H "Authorization: Bearer ${accessToken}" "${url}"`;
         });
     });
 
