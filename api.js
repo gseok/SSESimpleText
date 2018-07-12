@@ -1,5 +1,6 @@
 const axios = require("axios");
-const EventSource = require("eventsource");
+//const EventSource = require("eventsource");
+require("event-source-polyfill");
 const subscriptionType = "LOCATIONIDS";
 const subscriptionFilter = ["ALL"];
 
@@ -48,9 +49,11 @@ function activateStream(url, accessToken, writeFn) {
         "HUB_ZWAVE_S2_AUTH_REQUEST",
         "HUB_ZWAVE_SECURE_JOIN_RESULT"
     ];
-    var source = new EventSource(url, {"headers": {
-        Authorization: `Bearer: ${accessToken}`
-    }});
+    var source = new EventSourcePolyfill(url, {
+        headers: {
+            Authorization: `Bearer: ${accessToken}`
+        }
+    });
 
     events.forEach(function(eventName) {
         source.addEventListener(eventName, function(evt) {
